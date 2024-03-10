@@ -4,33 +4,51 @@
 
 int main()
 {
-    const int screenWidth = 800;
-    const int screenHeight = 800;
+    const int screenWidth = 1000;
+    const int screenHeight = 600;
 
     InitWindow(screenWidth, screenHeight, "my first window");
 
     SetTargetFPS(60);
-    
-    Player player = Player();
 
-    //sample rectangles setup
-    std::vector<Rectangle> rects;
-    rects.push_back(Rectangle(100, 100, 100, 100));
-    rects.push_back(Rectangle(300, 500, 100, 50));
-    rects.push_back(Rectangle(700, 200, 50, 200));
+    //split screen 1
+    Player player1 = Player(225, 225);
+
+    std::vector<Rectangle> s1_borders;
+    s1_borders.push_back(Rectangle(25, 25, 400,10));
+    s1_borders.push_back(Rectangle(25, 25, 10, 400));
+    s1_borders.push_back(Rectangle(425, 25, 10, 400));
+    s1_borders.push_back(Rectangle(25, 415, 400, 10));
+
+    //split screen 2
+    Player player2 = Player(75, 225);
+
+    std::vector<Rectangle> s2_borders;
+    s2_borders.push_back(Rectangle(565, 25, 400,10));
+    s2_borders.push_back(Rectangle(565, 25, 10, 400));
+    s2_borders.push_back(Rectangle(965, 25, 10, 400));
+    s2_borders.push_back(Rectangle(565, 415, 400, 10));
     
     while(!WindowShouldClose())
     {
-        player.getMovement();
-        player.checkForCollisions(rects);
+        player1.getMovement();
+        player1.checkForCollisions(s1_borders);
+        player2.getMovement();
+        player2.checkForCollisions(s2_borders);
         
         BeginDrawing();
-            for(auto rect : rects)
+            for(auto border : s1_borders)
             {
-                DrawRectangleRec(rect, BLUE);
+                DrawRectangleRec(border, BLACK);
+            }
+            for(auto border : s2_borders)
+            {
+                DrawRectangleRec(border, BLACK);
             }
             
-            DrawRectangleV(player.pos, {(float)player.width, (float)player.height}, player.color);
+            DrawRectangleV(player1.pos, {(float)player1.width, (float)player1.height}, player1.color);
+            DrawRectangleV(player2.pos, {(float)player2.width, (float)player2.height}, player2.color);
+
             ClearBackground(WHITE);
         EndDrawing();
     }

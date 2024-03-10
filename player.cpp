@@ -13,16 +13,21 @@ class Player
 
         Color color;
 
-        Player()
+        void defaultSettings()
         {
-            pos.x = GetScreenWidth()/2;
-            pos.y= GetScreenHeight()/2;
-
             color = RED;
-
-            width = height = 50;
-
+            width = height = 30;
             speed = 5;
+        }
+
+        Player(){}
+
+        //passing parameters to set players to their respective screens
+        Player(int posX, int posY)
+        {
+            pos.x = posX;
+            pos.y = posY;
+            defaultSettings();
         }
 
         //player movement is grid based
@@ -66,7 +71,7 @@ class Player
         }
 
 
-        void checkForCollisions(std::vector<Rectangle> rects)
+        void checkForCollisions(const std::vector<Rectangle> &rects)
         {
             for(auto rect : rects)
             {
@@ -75,7 +80,7 @@ class Player
         }
 
         //resolve collisions with one rectangle
-        void checkCollision(Rectangle rect)
+        void checkCollision(const Rectangle &rect)
         {
             //side = 0 no collision
             //side = 1 top
@@ -136,7 +141,7 @@ class Player
             }
 
             //left check
-            if(pos.x + width > rect.x && pos.x < rect.x)
+            if(pos.x + width >  rect.x && pos.x < rect.x)
             {
                 if(pos.y + height > rect.y && pos.y + height < rect.y + rect.height)
                 {
