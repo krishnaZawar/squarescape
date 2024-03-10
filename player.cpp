@@ -1,5 +1,6 @@
 #include <raylib.h>
 #include<vector>
+#include "level_finisher.cpp"
 
 class Player
 {
@@ -71,16 +72,16 @@ class Player
         }
 
 
-        void checkForCollisions(const std::vector<Rectangle> &rects)
+        void ResolveCollisions(const std::vector<Rectangle> &rects)
         {
             for(auto rect : rects)
             {
-                checkCollision(rect);
+                resolveCollision(rect);
             }
         }
 
-        //resolve collisions with one rectangle
-        void checkCollision(const Rectangle &rect)
+        //check collisions with one rectangle
+        int checkCollision(const Rectangle &rect)
         {
             //side = 0 no collision
             //side = 1 top
@@ -157,6 +158,12 @@ class Player
                 }
             }
 
+            return side;
+        }
+
+        void resolveCollision(const Rectangle &rect)
+        {
+            int side = checkCollision(rect);
             if(side == 1)
             {
                 pos.y = rect.y - height;
@@ -173,5 +180,14 @@ class Player
             {
                 pos.x = rect.x - width;
             }
+        }
+
+        bool hasLevelFinished(const levelFinisher &finisher)
+        {
+            if(checkCollision(Rectangle(finisher.pos.x, finisher.pos.y, finisher.width, finisher.height)))
+            {
+                return true;
+            }
+            return false;
         }
 };
