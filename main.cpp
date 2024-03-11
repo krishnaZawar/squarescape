@@ -2,6 +2,8 @@
 #include "player.cpp"
 #include<vector>
 
+bool hasGameStarted = false;
+
 int main()
 {
     const int screenWidth = 1000;
@@ -19,6 +21,7 @@ int main()
     screen1_borders.push_back(Rectangle(25, 25, 10, 400));
     screen1_borders.push_back(Rectangle(425, 25, 10, 400));
     screen1_borders.push_back(Rectangle(25, 415, 400, 10));
+    
     levelFinisher screen1_finisher = levelFinisher(350, 225);
 
     //split screen 2
@@ -31,8 +34,20 @@ int main()
     screen2_borders.push_back(Rectangle(565, 415, 400, 10));
 
     levelFinisher screen2_finisher = levelFinisher(900, 225);
+
+    while(!WindowShouldClose() && !hasGameStarted)
+    {
+        BeginDrawing();
+            ClearBackground(WHITE);
+            DrawText("press enter to start", 300, 300, 30, BLACK);
+        EndDrawing();
+        if(IsKeyPressed(257)) // 257 : code for enter
+        {
+            hasGameStarted = true;
+        }
+    }
     
-    while(!WindowShouldClose())
+    while(!WindowShouldClose() && hasGameStarted)
     {
         player1.getMovement();
         player1.ResolveCollisions(screen1_borders);

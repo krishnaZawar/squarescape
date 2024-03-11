@@ -4,6 +4,12 @@
 
 class Player
 {
+    void defaultSettings()
+    {
+        color = RED;
+        width = height = 30;
+        speed = 5;
+    }
     public:
         Vector2 pos;
 
@@ -13,13 +19,6 @@ class Player
         int speed;
 
         Color color;
-
-        void defaultSettings()
-        {
-            color = RED;
-            width = height = 30;
-            speed = 5;
-        }
 
         Player(){}
 
@@ -50,24 +49,6 @@ class Player
             else if(IsKeyDown('D') ||IsKeyDown(262))
             {
                 pos.x += speed;
-            }
-
-            //border collision checking
-            if(pos.x <= 0)
-            {
-                pos.x = 0;
-            }
-            else if(pos.x >= GetScreenWidth()-width)
-            {
-                pos.x = GetScreenWidth()-width;
-            }
-            if(pos.y <= 0)
-            {
-                pos.y = 0;
-            }
-            else if(pos.y >= GetScreenHeight() - height)
-            {
-                pos.y = GetScreenHeight() - height;
             }
         }
 
@@ -125,7 +106,7 @@ class Player
             }
 
             //right check
-            if(pos.x < rect.x + rect.width && pos.x + width > rect.x + rect.width)
+            if(pos.x <= rect.x + rect.width && pos.x + width > rect.x + rect.width)
             {
                 if(pos.y + height > rect.y && pos.y + height < rect.y + rect.height)
                 {
@@ -142,7 +123,7 @@ class Player
             }
 
             //left check
-            if(pos.x + width >  rect.x && pos.x < rect.x)
+            if(pos.x + width >=  rect.x && pos.x < rect.x)
             {
                 if(pos.y + height > rect.y && pos.y + height < rect.y + rect.height)
                 {
