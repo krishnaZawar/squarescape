@@ -3,17 +3,27 @@
 
 class Level
 {
+    bool exists;
     public:
         std::pair<std::vector<Rectangle>, std::vector<Rectangle>> levelDesgin;
         std::pair<Vector2, Vector2> levelEndpoints;
         std::pair<Vector2, Vector2> playerPos;
 
-        Level() {}
+        Level() 
+        {
+            exists = false;
+        }
 
-        Level(std::pair<std::vector<Rectangle>, std::vector<Rectangle>> levelDesgin, std::pair<Vector2, Vector2> levelEndpoints,   std::pair<Vector2, Vector2> playerPos)
+        Level(std::pair<std::vector<Rectangle>, std::vector<Rectangle>> levelDesgin, std::pair<Vector2, Vector2> levelEndpoints,   std::pair<Vector2, Vector2> playerPos, bool levelExists)
         {
             this->levelDesgin = levelDesgin;
             this->levelEndpoints = levelEndpoints;
             this->playerPos = playerPos;
+            exists = levelExists;
+        }
+
+        bool levelExists()
+        {
+            return exists;
         }
 };

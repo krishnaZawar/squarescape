@@ -14,14 +14,15 @@ class levelLoader
     void addLevel(std::vector<Rectangle> screen1_design, std::vector<Rectangle> screen2_design, Vector2 screen1_endpoint, Vector2 screen2_endpoint, Vector2 screen1_playerpos, Vector2 screen2_playerpos)
     {
         levelDesgin.push_back(std::make_pair(screen1_design, screen2_design));
-        levelEndpoints.push_back(std::make_pair(screen2_endpoint, screen2_endpoint));
+        levelEndpoints.push_back(std::make_pair(screen1_endpoint, screen2_endpoint));
         playerPos.push_back(std::make_pair(screen1_playerpos, screen2_playerpos));
     }
     
     public:
         levelLoader()
         {
-            cur_level = 0;
+            //game not started
+            cur_level = -1;
 
             std::vector<Rectangle> screen1_design;
             std::vector<Rectangle> screen2_design;
@@ -37,20 +38,15 @@ class levelLoader
             screen1_endpoint = {375, 225}; screen2_endpoint = {915, 225};
             screen1_playerpos = {75, 225}; screen2_playerpos = {615, 225};
             addLevel(screen1_design, screen2_design, screen1_endpoint, screen2_endpoint, screen1_playerpos, screen2_playerpos);
-            
-            //level 1 design
-            screen1_design.clear(); screen2_design.clear();
-            screen1_endpoint = {375, 225}; screen2_endpoint = {615, 225};
-            screen1_playerpos = {75, 225}; screen2_playerpos = {915, 225};
-            addLevel(screen1_design, screen2_design, screen1_endpoint, screen2_endpoint, screen1_playerpos, screen2_playerpos);
         }
 
-        Level LoadLevel(int cur_level)
+        Level loadNextLevel()
         {
-            if(cur_level >= levelDesgin.size())
+            cur_level++;
+            if(cur_level >= (int)levelDesgin.size())
             {
                 return Level();
             }
-            return Level(levelDesgin.at(cur_level), levelEndpoints.at(cur_level), playerPos.at(cur_level));
+            return Level(levelDesgin.at(cur_level), levelEndpoints.at(cur_level), playerPos.at(cur_level), true);
         }
 };

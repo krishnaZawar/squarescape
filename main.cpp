@@ -1,17 +1,23 @@
 #include "raylib.h"
 #include "player.cpp"
+#include "level_loader.cpp"
 #include<vector>
-
-bool hasGameStarted = false;
 
 int main()
 {
     const int screenWidth = 1000;
     const int screenHeight = 600;
 
+    bool hasGameStarted = false;
+    bool hasGameEnded = false;
+    bool levelCompleted = true;
+
     InitWindow(screenWidth, screenHeight, "my first window");
 
     SetTargetFPS(60);
+
+    //level Loader
+    levelLoader loader = levelLoader();
 
     //split screen 1
     Player player1 = Player(225, 225);
@@ -47,17 +53,39 @@ int main()
         }
     }
     
-    while(!WindowShouldClose() && hasGameStarted)
+    while(!WindowShouldClose() && hasGameStarted && !hasGameEnded)
     {
+        if(levelCompleted)
+        {
+            Level cur_level = loader.loadNextLevel();
+
+            if(!cur_level.levelExists())
+            {
+                hasGameEnded = true;
+                break;
+            }
+
+            //reinitialise player pos
+            player1.pos = cur_level.playerPos.first;
+            player2.pos = cur_level.playerPos.second;
+
+            //reinitialise endpoints pos
+            screen1_finisher.pos = cur_level.levelEndpoints.first;
+            screen2_finisher.pos = cur_level.levelEndpoints.second;
+
+            levelCompleted = false;
+        }
+
+        if(player1.hasLevelFinished(screen1_finisher) && player2.hasLevelFinished(screen2_finisher))
+        {
+            levelCompleted = true;
+        }
+
         player1.getMovement();
         player1.ResolveCollisions(screen1_borders);
         player2.getMovement();
         player2.ResolveCollisions(screen2_borders);
-
-        if(player1.hasLevelFinished(screen1_finisher) && player2.hasLevelFinished(screen2_finisher))
-        {
-            //update level
-        }
+        
         
         BeginDrawing();
             for(auto border : screen1_borders)
