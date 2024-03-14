@@ -3,10 +3,19 @@
 #include "level_loader.cpp"
 #include<vector>
 
+
+void DrawControlsInfo()
+{
+    Texture2D arrows_img = LoadTexture("images/arrows.png");
+    DrawText("Controls", 50, 475, 30, BLACK);
+    DrawText("WSAD or", 50, 530, 20, BLACK);
+    DrawTexture(arrows_img, 140, 510, WHITE);
+}
+
 int main()
 {
     const int screenWidth = 1000;
-    const int screenHeight = 600;
+    const int screenHeight = 700;
 
     bool hasGameStarted = false;
     bool hasGameEnded = false;
@@ -43,9 +52,11 @@ int main()
 
     while(!WindowShouldClose() && !hasGameStarted)
     {
+        Texture2D game_logo = LoadTexture("images/logo.png");
         BeginDrawing();
             ClearBackground(WHITE);
-            DrawText("press enter to start", 300, 300, 30, BLACK);
+            DrawTexture(game_logo, 37, 50, WHITE);
+            DrawText("press enter to start", 350, 500, 30, BLACK);
         EndDrawing();
         if(IsKeyPressed(257)) // 257 : code for enter
         {
@@ -88,6 +99,7 @@ int main()
         
         
         BeginDrawing();
+            DrawControlsInfo();
             for(auto border : screen1_borders)
             {
                 DrawRectangleRec(border, BLACK);

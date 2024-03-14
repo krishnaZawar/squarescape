@@ -47,6 +47,6 @@ class levelLoader
             {
                 return Level();
             }
-            return Level(levelDesgin.at(cur_level), levelEndpoints.at(cur_level), playerPos.at(cur_level), true);
+            return Level(levelDesgin.at(cur_level), levelEndpoints.at(cur_level), playerPos.at(cur_level));
         }
 };
