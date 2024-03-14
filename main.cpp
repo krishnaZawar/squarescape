@@ -28,26 +28,34 @@ int main()
     //level Loader
     levelLoader loader = levelLoader();
 
+
+
     //split screen 1
     Player player1 = Player(225, 225);
 
+    //top-left = {25, 25}
+    //size = 400x400
     std::vector<Rectangle> screen1_borders;
     screen1_borders.push_back(Rectangle(25, 25, 400,10));
     screen1_borders.push_back(Rectangle(25, 25, 10, 400));
     screen1_borders.push_back(Rectangle(425, 25, 10, 400));
     screen1_borders.push_back(Rectangle(25, 415, 400, 10));
-    
+    std::vector<Rectangle> screen1_obstacles;
     levelFinisher screen1_finisher;
+
+
 
     //split screen 2
     Player player2 = Player(775, 225);
-
+    
+    //top-left = {565, 25}
+    //size = 400x400
     std::vector<Rectangle> screen2_borders;
     screen2_borders.push_back(Rectangle(565, 25, 400,10));
     screen2_borders.push_back(Rectangle(565, 25, 10, 400));
     screen2_borders.push_back(Rectangle(965, 25, 10, 400));
     screen2_borders.push_back(Rectangle(565, 415, 400, 10));
-
+    std::vector<Rectangle> screen2_obstacles;
     levelFinisher screen2_finisher;
 
     while(!WindowShouldClose() && !hasGameStarted)
@@ -84,6 +92,9 @@ int main()
             screen1_finisher.setPos(cur_level.levelEndpoints.first);
             screen2_finisher.setPos(cur_level.levelEndpoints.second);
 
+            screen1_obstacles = cur_level.levelDesgin.first;
+            screen2_obstacles = cur_level.levelDesgin.second;
+
             levelCompleted = false;
         }
 
@@ -94,8 +105,10 @@ int main()
 
         player1.getMovement();
         player1.ResolveCollisions(screen1_borders);
+        player1.ResolveCollisions(screen1_obstacles);
         player2.getMovement();
         player2.ResolveCollisions(screen2_borders);
+        player2.ResolveCollisions(screen2_obstacles);
         
         
         BeginDrawing();
@@ -107,6 +120,14 @@ int main()
             for(auto border : screen2_borders)
             {
                 DrawRectangleRec(border, BLACK);
+            }
+            for(auto obstacle : screen1_obstacles)
+            {
+                DrawRectangleRec(obstacle, BLACK);
+            }
+            for(auto obstacle : screen2_obstacles)
+            {
+                DrawRectangleRec(obstacle, BLACK);
             }
 
             screen1_finisher.Draw(); screen2_finisher.Draw();

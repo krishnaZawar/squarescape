@@ -38,6 +38,13 @@ class levelLoader
             screen1_endpoint = {375, 225}; screen2_endpoint = {915, 225};
             screen1_playerpos = {75, 225}; screen2_playerpos = {615, 225};
             addLevel(screen1_design, screen2_design, screen1_endpoint, screen2_endpoint, screen1_playerpos, screen2_playerpos);
+
+            //level 1 design
+            screen1_design.clear(); screen2_design.clear();
+            screen1_design.push_back(Rectangle(150, 200, 30, 100));
+            screen1_endpoint = {225, 225}; screen2_endpoint = {850, 225};
+            screen1_playerpos = {375, 225}; screen2_playerpos = {600, 225};
+            addLevel(screen1_design, screen2_design, screen1_endpoint, screen2_endpoint, screen1_playerpos, screen2_playerpos);
         }
 
         Level loadNextLevel()
