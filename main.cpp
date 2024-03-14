@@ -37,7 +37,7 @@ int main()
     screen1_borders.push_back(Rectangle(425, 25, 10, 400));
     screen1_borders.push_back(Rectangle(25, 415, 400, 10));
     
-    levelFinisher screen1_finisher = levelFinisher(350, 225);
+    levelFinisher screen1_finisher;
 
     //split screen 2
     Player player2 = Player(775, 225);
@@ -48,7 +48,7 @@ int main()
     screen2_borders.push_back(Rectangle(965, 25, 10, 400));
     screen2_borders.push_back(Rectangle(565, 415, 400, 10));
 
-    levelFinisher screen2_finisher = levelFinisher(900, 225);
+    levelFinisher screen2_finisher;
 
     while(!WindowShouldClose() && !hasGameStarted)
     {
@@ -81,8 +81,8 @@ int main()
             player2.pos = cur_level.playerPos.second;
 
             //reinitialise endpoints pos
-            screen1_finisher.pos = cur_level.levelEndpoints.first;
-            screen2_finisher.pos = cur_level.levelEndpoints.second;
+            screen1_finisher.setPos(cur_level.levelEndpoints.first);
+            screen2_finisher.setPos(cur_level.levelEndpoints.second);
 
             levelCompleted = false;
         }

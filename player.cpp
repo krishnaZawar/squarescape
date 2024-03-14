@@ -163,9 +163,10 @@ class Player
             }
         }
 
-        bool hasLevelFinished(const levelFinisher &finisher)
+        bool hasLevelFinished(levelFinisher &finisher)
         {
-            if(checkCollision(Rectangle(finisher.pos.x, finisher.pos.y, finisher.width, finisher.height)))
+            Vector2 pos = finisher.getPos();
+            if(checkCollision(Rectangle(pos.x, pos.y, finisher.getWidth(), finisher.getHeight())))
             {
                 return true;
             }

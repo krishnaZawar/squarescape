@@ -5,7 +5,9 @@ class levelFinisher
 {
     //border
     float border;
-    Color borderColor;
+    Vector2 pos;
+    float width;
+    float height;
 
     //inner filling
     float inner_width;
@@ -13,31 +15,36 @@ class levelFinisher
     Vector2 inner_pos;
 
     public:
-        Vector2 pos;
-        float width;
-        float height;
-
-        void defaultSettings()
+        levelFinisher()
         {
             border = 5;
             width = height = 20;
             inner_height = inner_width = width - 2*border;
-            borderColor = BLACK;
-        }
-
-        levelFinisher(){}
-
-        levelFinisher(int posX, int posY)
-        {
-            pos.x = posX;
-            pos.y = posY;
-            defaultSettings();
-            inner_pos = {posX+border, posY+border};
         }
         
         void Draw()
         {
-            DrawRectangleV(pos, {width, height},borderColor);
-            DrawRectangleV(inner_pos, {inner_width, inner_height}, WHITE);
+            DrawRectangleV(pos, {width, height}, BLACK);
+            DrawRectangleV(inner_pos, {inner_width, inner_height}, YELLOW);
+        }
+
+        void setPos(Vector2 pos)
+        {
+            this->pos = pos;
+            inner_pos = {this->pos.x+border, this->pos.y+border};
+        }
+
+        Vector2 getPos()
+        {
+            return pos;
+        }
+        
+        int getWidth()
+        {
+            return width;
+        }
+        int getHeight()
+        {
+            return height;
         }
 };
