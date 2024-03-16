@@ -21,7 +21,7 @@ int main()
     bool hasGameEnded = false;
     bool levelCompleted = true;
 
-    InitWindow(screenWidth, screenHeight, "my first window");
+    InitWindow(screenWidth, screenHeight, "Square Space");
 
     SetTargetFPS(60);
 
@@ -138,6 +138,22 @@ int main()
             ClearBackground(WHITE);
         EndDrawing();
     }
+
+    while (!WindowShouldClose() && hasGameEnded)
+    {
+        BeginDrawing();
+            ClearBackground(WHITE);
+            DrawText("Congratulions!!", 125, 100, 100, BLACK);
+            DrawText("you have completed the game", 125, 220, 50, BLACK);
+
+            DrawText("Press enter to exit", 325, 500, 30, BLACK);
+        EndDrawing();
+        if(IsKeyPressed(257))
+        {
+            break;
+        }
+    }
+    
 
     CloseWindow();
 
