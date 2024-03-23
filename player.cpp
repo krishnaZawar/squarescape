@@ -4,20 +4,24 @@
 
 class Player
 {
+    Vector2 prev_pos;
+    Vector2 pos;
+
+    int width;
+    int height;
+
+    int speed;
+
+    bool isInverse;
+
     void defaultSettings()
     {
+        isInverse = false;
         color = RED;
         width = height = 30;
-        speed = 5;
+        speed = 150; // set in pixels/second
     }
     public:
-        Vector2 pos;
-
-        int width;
-        int height;
-
-        int speed;
-
         Color color;
 
         Player(){}
@@ -27,6 +31,7 @@ class Player
         {
             pos.x = posX;
             pos.y = posY;
+            prev_pos = pos;
             defaultSettings();
         }
 
@@ -34,21 +39,37 @@ class Player
         //moves on the basis of arrow keys and WSAD
         void getMovement()
         {
+            prev_pos = pos;
+            float deltaTime = 1.0/GetFPS();
             if(IsKeyDown('W') || IsKeyDown(265))
             {
-                pos.y -= speed;
+                pos.y -= speed * deltaTime;
             }
             else if(IsKeyDown('S') || IsKeyDown(264))
             {
-                pos.y += speed;
+                pos.y += speed * deltaTime;
             }
             else if(IsKeyDown('A') || IsKeyDown(263))
             {
-                pos.x -= speed;
+                if(isInverse)
+                {
+                    pos.x += speed * deltaTime;
+                }
+                else
+                {
+                    pos.x -= speed * deltaTime;
+                }
             }
             else if(IsKeyDown('D') ||IsKeyDown(262))
             {
-                pos.x += speed;
+                if(isInverse)
+                {
+                    pos.x -= speed * deltaTime;
+                }
+                else
+                {
+                    pos.x += speed * deltaTime;
+                }
             }
         }
 
@@ -72,73 +93,74 @@ class Player
             int side = 0;
 
             //top check
-            if(pos.y + height > rect.y && pos.y < rect.y + rect.height)
+            if(pos.y + height > rect.y && pos.y < rect.y && prev_pos.x == pos.x)
             {
-                if(pos.x + width > rect.x && pos.x + width < rect.x + rect.width)
+                if(pos.x + width > rect.x && pos.x < rect.x)
                 {
                     side = 1;
                 }
-                else if(pos.x < rect.x + rect.width && pos.x > rect.x)
+                else if(pos.x + width <= rect.x + rect.width && pos.x >= rect.x)
                 {
                     side = 1;
                 }
-                else if(pos.x > rect.x && pos.x + width < rect.x + rect.width)
+                else if(pos.x < rect.x + rect.width  && pos.x + width > rect.x + rect.width)
                 {
                     side = 1;
                 }
             }
 
             //bottom check
-            if(pos.y + height > rect.y + height && pos.y < rect.y + rect.height)
+            if(pos.y + height > rect.y + rect.height && pos.y < rect.y + rect.height && prev_pos.x == pos.x)
             {
-                if(pos.x + width > rect.x && pos.x + width < rect.x + rect.width)
+                if(pos.x + width > rect.x && pos.x < rect.x)
                 {
                     side = 3;
                 }
-                else if(pos.x < rect.x + rect.width && pos.x > rect.x)
+                else if(pos.x + width <= rect.x + rect.width && pos.x >= rect.x)
                 {
                     side = 3;
                 }
-                else if(pos.x > rect.x && pos.x + width < rect.x + rect.width)
+                else if(pos.x < rect.x + rect.width  && pos.x + width > rect.x + rect.width)
                 {
                     side = 3;
                 }
             }
 
             //right check
-            if(pos.x <= rect.x + rect.width && pos.x + width > rect.x + rect.width)
+            if(pos.x < rect.x + rect.width && pos.x + width > rect.x + rect.width && prev_pos.y == pos.y)
             {
-                if(pos.y + height > rect.y && pos.y + height < rect.y + rect.height)
+                if(pos.y + height > rect.y && pos.y < rect.y)
                 {
                     side = 2;
                 }
-                else if(pos.y < rect.y + rect.height && pos.y > rect.y)
+                else if(pos.y >= rect.y && pos.y + height <= rect.y + rect.height)
                 {
                     side = 2;
                 }
-                else if(pos.y > rect.y && pos.y + height < rect.y + rect.height)
+                else if(pos.y < rect.y + rect.height && pos.y + height > rect.y + rect.height)
                 {
                     side = 2;
                 }
             }
 
             //left check
-            if(pos.x + width >=  rect.x && pos.x < rect.x)
+            if(pos.x + width >  rect.x && pos.x < rect.x && prev_pos.y == pos.y)
             {
-                if(pos.y + height > rect.y && pos.y + height < rect.y + rect.height)
+                if(pos.y + height > rect.y && pos.y < rect.y)
                 {
                     side = 4;
                 }
-                else if(pos.y < rect.y + rect.height && pos.y > rect.y)
+                else if(pos.y >= rect.y && pos.y + height <= rect.y + rect.height)
                 {
                     side = 4;
                 }
-                else if(pos.y > rect.y && pos.y + height < rect.y + rect.height)
+                else if(pos.y < rect.y + rect.height && pos.y + height > rect.y + rect.height)
                 {
                     side = 4;
                 }
             }
 
+            //no collision
             return side;
         }
 
@@ -171,5 +193,37 @@ class Player
                 return true;
             }
             return false;
+        }
+
+        void setPos(Vector2 newPos) 
+        {
+            pos = newPos;
+        }
+
+        Vector2 getPos()
+        {
+            return pos;
+        }
+        float getPosX()
+        {
+            return pos.x;
+        }
+        float getPosY()
+        {
+            return pos.y;
+        }
+
+        float getWidth()
+        {
+            return width;
+        }
+        float getHeight()
+        {
+            return height;
+        }
+
+        void reverseControls()
+        {
+            isInverse = !isInverse;
         }
 };
