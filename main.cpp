@@ -23,17 +23,21 @@ void DrawWalls(const std::vector<Rectangle> rects)
 
 int main()
 {
-    const int screenWidth = 1000;
-    const int screenHeight = 700;
+    const int screen_width = 1000;
+    const int screen_height = 700;
 
-    bool hasTransitionEnded = false;
-    bool levelCompleted = true;
-    bool haveLevelsEnded = false;
+    bool has_transition_ended = false;
+    bool level_completed = true;
+    bool have_levels_ended = false;
 
-    InitWindow(screenWidth, screenHeight, "Square Space");
+    InitWindow(screen_width, screen_height, "Square Space");
+    InitAudioDevice();
 
     //level Loader
     levelLoader loader = levelLoader();
+
+    //audios
+    Sound lvl_complete_Sfx = LoadSound("resources/level_complete.mp3");
 
 
     //split screen 1
@@ -81,20 +85,21 @@ int main()
 
    //game loop 
    game_loop:
-        hasTransitionEnded = false;
-        haveLevelsEnded = false;
+        has_transition_ended = false;
+        have_levels_ended = false;
         loader.reset();
         screen1_borders.at(2) = Rectangle(425, 25, 10, 410);
         screen2_borders.at(1) = Rectangle(565, 25, 10, 410);
-        while(!WindowShouldClose() && !haveLevelsEnded)
+        while(!WindowShouldClose() && !have_levels_ended)
         {
-            if(levelCompleted)
+            if(level_completed)
             {
+                WaitTime(0.1); // compensation for audio delay
                 Level cur_level = loader.loadNextLevel();
 
                 if(!cur_level.levelExists())
                 {
-                    haveLevelsEnded = true;
+                    have_levels_ended = true;
                     break;
                 }
 
@@ -109,12 +114,13 @@ int main()
                 screen1_obstacles = cur_level.levelDesgin.first;
                 screen2_obstacles = cur_level.levelDesgin.second;
 
-                levelCompleted = false;
+                level_completed = false;
             }
 
             if(player1.hasLevelFinished(screen1_finisher) && player2.hasLevelFinished(screen2_finisher))
             {
-                levelCompleted = true;
+                PlaySound(lvl_complete_Sfx);
+                level_completed = true;
             }
 
             player1.getMovement();
@@ -157,7 +163,7 @@ int main()
     screen1_finisher.setPos(Vector2(55, 55));
     screen2_finisher.setPos(Vector2(925, 55));
 
-    while(!WindowShouldClose() && !hasTransitionEnded)
+    while(!WindowShouldClose() && !has_transition_ended)
     {
         float deltaTime = 1.0/GetFPS();
 
@@ -191,7 +197,7 @@ int main()
 
         if(player1.getPosY() + player1.getHeight() < 0 && player2.getPosY() + player2.getHeight() < 0)
         {
-            hasTransitionEnded = true;
+            has_transition_ended = true;
         }
 
         BeginDrawing();
@@ -209,7 +215,7 @@ int main()
     //end screen
     Button play_again = Button("Play again");
     Button quit = Button ("Quit");
-    while(!WindowShouldClose() && hasTransitionEnded)
+    while(!WindowShouldClose() && has_transition_ended)
     {
         BeginDrawing();
         play_again.onHover();
