@@ -30,7 +30,7 @@ int main()
     bool level_completed = true;
     bool have_levels_ended = false;
 
-    InitWindow(screen_width, screen_height, "Square Space");
+    InitWindow(screen_width, screen_height, "squarescape");
     InitAudioDevice();
 
     //level Loader
