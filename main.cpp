@@ -74,8 +74,7 @@ int main()
         Texture2D game_logo = LoadTexture("resources/logo.png");
         BeginDrawing();
             ClearBackground(WHITE);
-            DrawTexture(game_logo, 40, 80, WHITE);
-            DrawText("press enter to start", 350, 500, 30, BLACK);
+            DrawTexture(game_logo, 0, 0, WHITE);
         EndDrawing();
         if(IsKeyPressed(257)) // 257 : code for enter
         {
