@@ -27,6 +27,7 @@ int main()
     const int screen_height = 700;
 
     bool has_transition_ended = false;
+
     bool level_completed = true;
     bool have_levels_ended = false;
 
@@ -216,11 +217,12 @@ int main()
     Button quit = Button ("Quit");
     while(!WindowShouldClose() && has_transition_ended)
     {
-        BeginDrawing();
+        Texture2D ending_screen_bg = LoadTexture("resources/ending_screen.png");
         play_again.onHover();
         quit.onHover();
-        ClearBackground(WHITE);
-            DrawText("Thank you!", 300, 150, 80, BLACK);
+        BeginDrawing();    
+            ClearBackground(WHITE);
+            DrawTexture(ending_screen_bg, 0, 0, WHITE);        
             play_again.Draw(Vector2(400, 300), Vector2(440, 320));
             quit.Draw(Vector2(400, 425), Vector2(480, 450));
         EndDrawing();
