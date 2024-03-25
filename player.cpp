@@ -12,11 +12,8 @@ class Player
 
     int speed;
 
-    bool isInverse;
-
     void defaultSettings()
     {
-        isInverse = false;
         color = RED;
         width = height = 30;
         speed = 150; // set in pixels/second
@@ -51,25 +48,11 @@ class Player
             }
             else if(IsKeyDown('A') || IsKeyDown(263))
             {
-                if(isInverse)
-                {
-                    pos.x += speed * deltaTime;
-                }
-                else
-                {
-                    pos.x -= speed * deltaTime;
-                }
+                pos.x -= speed * deltaTime;
             }
             else if(IsKeyDown('D') ||IsKeyDown(262))
             {
-                if(isInverse)
-                {
-                    pos.x -= speed * deltaTime;
-                }
-                else
-                {
-                    pos.x += speed * deltaTime;
-                }
+                pos.x += speed * deltaTime;
             }
         }
 
@@ -220,10 +203,5 @@ class Player
         float getHeight()
         {
             return height;
-        }
-
-        void reverseControls()
-        {
-            isInverse = !isInverse;
         }
 };
