@@ -3,8 +3,7 @@ Sync, Strategize, Escape!
 
 Squarescape is a 2D puzzle game, where two friends are stuck in some connected rooms where each move affects both of them. Dodge obstacles, synchronise your moves, and reach the friends to the escape square to progress to the next level!
 
-![Starting Screen](https://imgur.com/7u156Wd)
-
+![Screenshot 1](screenshots/start_screen.png)
 
 ## Features
 
@@ -17,7 +16,7 @@ Squarescape is a 2D puzzle game, where two friends are stuck in some connected r
 
 ### Option 1: Download from Website
 
-Visit  [SQUARESCAPE.itch.io](https://krishna-zawar.itch.io/squarescape) to download Squarescape and start playing immediately!
+Visit  [SQUARESCAPE.itch.io](https://krishna-zawar.itch.io/squarescape)  to download Squarescape and start playing immediately!
 
 ### Option 2: Clone the Repository
 
@@ -28,9 +27,9 @@ Visit  [SQUARESCAPE.itch.io](https://krishna-zawar.itch.io/squarescape) to downl
 
 ## Screenshots
 
-![Level 0](https://imgur.com/xVko2M1)
-![Level 3](https://imgur.com/7zd6kOU)
-![Ending Screen](https://imgur.com/SE3N7co)
+![Level 0](screenshots/level0.png)
+![Level 3](screenshots/level3.png)
+![Ending Screen](screenshots/ending_screen.png)
 
 ## Contributing
 
