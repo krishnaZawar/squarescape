@@ -3,7 +3,7 @@ Sync, Strategize, Escape!
 
 Squarescape is a 2D puzzle game, where two friends are stuck in some connected rooms where each move affects both of them. Dodge obstacles, synchronise your moves, and reach the friends to the escape square to progress to the next level!
 
-![Screenshot 1](screenshots/start_screen.png)
+<img src="screenshots/start_screen.png" alt="Start Screen" width="400">
 
 ## Features
 
