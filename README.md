@@ -28,7 +28,7 @@ Visit  [SQUARESCAPE.itch.io](https://krishna-zawar.itch.io/squarescape)  to down
 
 ## Screenshots
 <div style="text-align:center;">
-    <img src="screenshots/start_screen.png" alt="Level 0" width="500">
+    <img src="screenshots/starting_screen.png" alt="Start Screen" width="500">    
     <img src="screenshots/level_0.png" alt="Level 0" width="500">    
     <img src="screenshots/level_3.png" alt="Level 3" width="500">
     <img src="screenshots/ending_screen.png" alt="Ending Screen" width="500">
