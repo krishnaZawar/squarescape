@@ -17,7 +17,7 @@ Squarescape is a 2D puzzle game, where two friends are stuck in some connected r
 
 ### Option 1: Download from Website
 
-Visit  [SQUARESCAPE.itch.io](https://krishna-zawar.itch.io/squarescape)  to download Squarescape and start playing immediately!
+Visit  [SQUARESCAPE.itch.io](https://krishna-zawar.itch.io/squarescape){:target="_blank"}  to download Squarescape and start playing immediately!
 
 ### Option 2: Clone the Repository
 
