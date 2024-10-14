@@ -72,7 +72,7 @@ int main()
     //starting page
     while(!WindowShouldClose())
     {
-        Texture2D game_logo = LoadTexture("resources/logo.png");
+        Texture2D game_logo = LoadTexture("resources/Logo.png");
         BeginDrawing();
             ClearBackground(WHITE);
             DrawTexture(game_logo, 0, 0, WHITE);
